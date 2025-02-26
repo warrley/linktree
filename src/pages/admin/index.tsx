@@ -3,7 +3,7 @@ import { Header } from "../../components/Header";
 import { Input } from "../../components/Input";
 import { Link, Trash2 } from "lucide-react";
 import { linkData } from "../../types/linkData";
-import { addDoc, collection, onSnapshot, orderBy, query } from "firebase/firestore";
+import { addDoc, collection, deleteDoc, doc, onSnapshot, orderBy, query } from "firebase/firestore";
 import { db } from "../../services/direbaseConnection";
 
 const Admin = () => {
@@ -65,6 +65,11 @@ const Admin = () => {
          })
     }
 
+    const handleDelete =  async (id: string) => {
+        const docRef = doc(db, "links", id);
+        await deleteDoc(docRef);
+    }
+
     return (
         <div className="flex items-center flex-col min-h-screen">
             <Header />
@@ -121,15 +126,13 @@ const Admin = () => {
                 </button>
             </form>
 
-            <h2 className="font-bold text-white mb-4 text-2xl">
-                My Links
-            </h2>
+            <h2 className="font-bold text-white mb-4 text-2xl">My Links</h2>
 
             {links.map((item, index) => (
                 <article key={index} className="w-11/12 max-w-2xl flex items-center justify-between mb-4 rounded-lg px-2 py-4 text-white" style={{ backgroundColor: item.background, color: item.color }}>
-                    <p>{item.name}</p>
+                    <p className="font-semibold text-lg">{item.name}</p>
                     <div>
-                        <button className="border border-dashed p-2 bg-zinc-950 rounded-md cursor-pointer"><Trash2 color="white" size={18}/></button>
+                        <button onClick={() => handleDelete(item.id)}  className="border border-dashed p-2 bg-zinc-950 rounded-md cursor-pointer"><Trash2 color={item.color} size={18}/></button>
                     </div>
                 </article>
             ))}

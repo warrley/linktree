@@ -19,7 +19,6 @@ const Login = () => {
 
         signInWithEmailAndPassword(auth, email, password)
             .then(() => {
-                console.log("logado com suscesso");
                 navigate("/admin", { replace: true })
             })
             .catch((err) => {
