@@ -1,17 +1,29 @@
-import { Link } from "react-router-dom";
-import { Input } from "../components/Input";
+import { Link, useNavigate } from "react-router-dom";
+import { Input } from "../../components/Input";
 import { FormEvent, useState } from "react";
+import { auth } from "../../services/direbaseConnection";
+import { signInWithEmailAndPassword } from "firebase/auth";
 
 const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const navigate = useNavigate();
 
     const handleSubmit = (e: FormEvent) => {
         e.preventDefault();
 
-        console.log({
-            email: email,
-            password: password
+        if (email === '' || password === '') {
+            alert("Fill in all fields")
+            return;
+        }
+
+        signInWithEmailAndPassword(auth, email, password)
+            .then(() => {
+                console.log("logado com suscesso");
+                navigate("/admin", { replace: true })
+            })
+            .catch((err) => {
+            console.log(err)
         })
     }
 

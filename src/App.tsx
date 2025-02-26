@@ -3,6 +3,7 @@ import Home from "./pages/home";
 import Login from "./pages/login";
 import Newtworks from "./pages/networks";
 import Admin from "./pages/admin";
+import { Private } from "./routes/Private";
 
 const router = createBrowserRouter([
   {
@@ -15,11 +16,11 @@ const router = createBrowserRouter([
   },
   {
     path: '/admin',
-    element: <Admin/>
+    element: <Private><Admin/></Private>
   },
   {
-    path: '/admin/newtworks',
-    element: <Newtworks/>
+    path: '/admin/networks',
+    element: <Private><Newtworks/></Private>
   },
 ])
 
