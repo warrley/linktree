@@ -1,19 +1,75 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Header } from "../../components/Header";
 import { Input } from "../../components/Input";
 import { Link, Trash2 } from "lucide-react";
+import { linkData } from "../../types/linkData";
+import { addDoc, collection, onSnapshot, orderBy, query } from "firebase/firestore";
+import { db } from "../../services/direbaseConnection";
 
 const Admin = () => {
     const [name, setName] = useState('');
     const [url, setUrl] = useState("");
     const [color, setColor] = useState("#f1f1f1");
     const [background, setBackground] = useState("#121212");
+    const [links, setLinks] = useState<linkData[]>([])
+
+    useEffect(() => {
+        const linkRef = collection(db, "links");
+        const queryRef = query(linkRef, orderBy("created", "asc"))
+
+        const unsub = onSnapshot(queryRef, (snapshot) => {
+            let lista: linkData[] = []; //cria um array
+            setLinks(lista);
+
+            snapshot.forEach((doc) => {
+                lista.push({    // pega os itens da web e coloca no array
+                    id: doc.id,
+                    name: doc.data().name,
+                    url: doc.data().url,
+                    color: doc.data().color,
+                    background: doc.data().background
+                })
+            })
+        })
+
+        return () => {
+            unsub(); //Para de observar
+        }
+    }, [])
+
+    const handleNewLink = (e: React.FormEvent) => {
+        e.preventDefault();
+
+        if (name === "" || url === "") {
+            alert("Fill in all fields");
+            return;
+        }
+
+        addDoc(collection(db, "links"), {
+            name: name,
+            url: url,
+            color: color,
+            background: background,
+            created: new Date()
+        })
+        .then(() => {
+            setName("");
+            setUrl("");
+            setColor("#f1f1f1");
+            setBackground("#121212");
+            console.log("cadastrado");
+            
+        })
+        .catch((err) => {
+            console.log("erro ao cadrastar" + err);
+         })
+    }
 
     return (
         <div className="flex items-center flex-col min-h-screen">
             <Header />
             
-            <form className="flex flex-col mt-8 mb-3 w-full max-w-2xl">
+            <form className="flex flex-col mt-8 mb-3 w-full max-w-2xl" onSubmit={handleNewLink}>
                 <label className="text-white font-medium mt-2 mb-2">Link Name</label>
                 <Input
                     placeholder="Enter a link name..."
@@ -69,13 +125,14 @@ const Admin = () => {
                 My Links
             </h2>
 
-            <article className="w-11/12 max-w-2xl flex items-center justify-between rounded-lg px-2 py-4 text-white bg-blue-500">
-                <p>Canal YT</p>
-                <div>
-                    <button className="border border-dashed p-2 rounded-md cursor-pointer"><Trash2 color="white" size={18}/></button>
-                </div>
-            </article>
-
+            {links.map((item, index) => (
+                <article key={index} className="w-11/12 max-w-2xl flex items-center justify-between mb-4 rounded-lg px-2 py-4 text-white" style={{ backgroundColor: item.background, color: item.color }}>
+                    <p>{item.name}</p>
+                    <div>
+                        <button className="border border-dashed p-2 bg-zinc-950 rounded-md cursor-pointer"><Trash2 color="white" size={18}/></button>
+                    </div>
+                </article>
+            ))}
         </div>
     )
 }
