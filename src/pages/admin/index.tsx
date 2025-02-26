@@ -1,9 +1,9 @@
-const Home = () => {
+const Admin = () => {
     return (
-        <div>
-            <h1>HOME</h1>
+        <div className="text-3xl bg-red-500">
+            <h1>Admin</h1>
         </div>
     )
 }
 
-export default Home;
+export default Admin;

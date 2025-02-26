@@ -1,8 +1,8 @@
 import { createBrowserRouter } from "react-router-dom";
-import Home from "./pages/admin";
+import Home from "./pages/home";
 import Login from "./pages/login";
-import Newtworks from "./pages/networks/inedex";
-import Admin from "./pages/home";
+import Newtworks from "./pages/networks";
+import Admin from "./pages/admin";
 
 const router = createBrowserRouter([
   {
