@@ -1,5 +1,5 @@
-import { collection, doc, getDoc, getDocs, onSnapshot, orderBy, query } from "firebase/firestore";
-import { CornerRightDown, Facebook, Github, Instagram, Twitch, Twitter, X, Youtube } from "lucide-react";
+import { collection, doc, getDoc, getDocs, orderBy, query } from "firebase/firestore";
+import { CornerRightDown, Github, Instagram, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import { linkData } from "../../types/linkData";
 import { db } from "../../services/direbaseConnection";
