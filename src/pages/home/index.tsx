@@ -60,7 +60,9 @@ const Home = () => {
             <Link to="/">
                 <h1 className="mt-11 text-white mb-7 font-bold text-7xl">W<span className="bg-gradient-to-r from-sky-400 to-blue-500 bg-clip-text text-transparent -ml-3">Link</span></h1>
             </Link>
-            <span className="flex text-gray-50 mb-5 mt-3 font-medium items-center">See my links <CornerRightDown className="mt-4" size={23} /></span>
+            {links.length > 0 && 
+                <span className="flex text-gray-50 mb-5 mt-3 font-medium items-center">See my links <CornerRightDown className="mt-4" size={23} /></span>
+            }
             
             <main className="flex flex-col w-11/12 max-w-xl text-center">
                 {links.map((item, index) => (
