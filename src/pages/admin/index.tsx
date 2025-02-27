@@ -74,7 +74,7 @@ const Admin = () => {
         <div className="flex items-center flex-col min-h-screen">
             <Header />
             
-            <form className="flex flex-col mt-8 mb-3 w-full max-w-2xl" onSubmit={handleNewLink}>
+            <form className="flex flex-col mt-8 mb-3 w-full max-w-2xl px-3" onSubmit={handleNewLink}>
                 <label className="text-white font-medium mt-2 mb-2">Link Name</label>
                 <Input
                     placeholder="Enter a link name..."
@@ -126,7 +126,9 @@ const Admin = () => {
                 </button>
             </form>
 
-            <h2 className="font-bold text-white mb-4 text-2xl">My Links</h2>
+            {links.length > 0 &&
+                <h2 className="font-bold text-white mb-4 text-2xl">My Links</h2>
+            }
 
             {links.map((item, index) => (
                 <article key={index} className="w-11/12 max-w-2xl flex items-center justify-between mb-4 rounded-lg px-2 py-4 text-white" style={{ backgroundColor: item.background, color: item.color }}>

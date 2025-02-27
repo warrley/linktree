@@ -68,7 +68,7 @@ const Newtworks = () => {
                     onChange={e => setX(e.target.value)}
                 />
 
-                <button type="submit" className="text-white bg-sky-600 py-3 rounded-lg flex items-center justify-center mb-7 font-semibold text-lg">Save Links</button>
+                <button type="submit" className="cursor-pointer text-white bg-sky-600 py-3 rounded-lg flex items-center justify-center mb-7 font-semibold text-lg">Save Links</button>
             </form>
         </div>
     )
