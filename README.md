@@ -7,7 +7,9 @@ email: warley@gmail.com
 senha: 123456  
 Abaixo está um vídeo de como ficou o projeto.  
 
-Infelizmente não pude fazer o deploy do projeto, mas aqui está as instruções para usar ->  
+<a href="https://linktree-sigma-opal.vercel.app/">Clique para acessar o site</a> 
+
+Instruções para rodar o projeto na sua máquina ->  
 1.Abra o cmd, vá até uma pasta que queria colocar o projeto.  
 2.Digite git clone https://github.com/warrley/linktree.git  
 3.Digite npm i  
