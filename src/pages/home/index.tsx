@@ -56,7 +56,7 @@ const Home = () => {
     },[])
 
     return (
-        <div className="flex flex-col w-full py-4 items-center justify-cente">
+        <div className="flex flex-col w-full py-4 items-center justify-center">
             <Link to="/">
                 <h1 className="mt-11 text-white mb-7 font-bold text-7xl">W<span className="bg-gradient-to-r from-sky-400 to-blue-500 bg-clip-text text-transparent -ml-3">Link</span></h1>
             </Link>
