@@ -1,50 +1,30 @@
-# React + TypeScript + Vite
+# WLink
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Esta é uma aplicação para divulgação de links como o linktree.  
+Firebase foi usado como banco de dados, então os dados ficarão salvos.  
+Para fazer o login:  
+email: warley@gmail.com  
+senha: 123456  
+Abaixo está um vídeo de como ficou o projeto.  
 
-Currently, two official plugins are available:
+Infelizmente não pude fazer o deploy do projeto, mas aqui está as instruções para usar ->  
+1.Abra o cmd, vá até uma pasta que queria colocar o projeto.  
+2.Digite git clone https://github.com/warrley/linktree.git  
+3.Digite npm i  
+4.Digite npm run dev, e abra o link dado.  
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Tecnologias Usadas
 
-## Expanding the ESLint configuration
+-React  
+-Vite  
+-Typescript  
+-Tailwind  
+-Firebase
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## Autor
+<a href="">Warley</a>
 
-- Configure the top-level `parserOptions` property like this:
+## Prévias
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+https://github.com/user-attachments/assets/93ef0bf7-dc6e-4cfb-8b7b-0ee06efb4844
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
-
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
-
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
