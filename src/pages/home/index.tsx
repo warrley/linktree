@@ -1,42 +1,64 @@
-import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
-import { CornerRightDown, Facebook, Instagram, Youtube } from "lucide-react";
+import { collection, doc, getDoc, getDocs, onSnapshot, orderBy, query } from "firebase/firestore";
+import { CornerRightDown, Facebook, Github, Instagram, Twitch, Twitter, X, Youtube } from "lucide-react";
 import { useEffect, useState } from "react";
 import { linkData } from "../../types/linkData";
 import { db } from "../../services/direbaseConnection";
 import { Link } from "react-router-dom";
+import { Social } from "../../types/social";
 
 
 const Home = () => {
-    const [links, setLinks] = useState<linkData[]>([])
+    const [links, setLinks] = useState<linkData[]>([]);
+    const [social, setSocial] = useState<Social>();
 
     useEffect(() => {
-        const linkRef = collection(db, "links");
-        const queryRef = query(linkRef, orderBy("created", "asc"))
+        const loadLinks = () => {
+            const linksRef = collection(db, "links");
+            const queryRef = query(linksRef, orderBy("created", "asc"));
 
-        const unsub = onSnapshot(queryRef, (snapshot) => {
-            let lista: linkData[] = []; //cria um array
-            setLinks(lista);
+            getDocs(queryRef)
+                .then((snapshot) => {
+                    let list = [] as linkData[];
 
-            snapshot.forEach((doc) => {
-                lista.push({    // pega os itens da web e coloca no array
-                    id: doc.id,
-                    name: doc.data().name,
-                    url: doc.data().url,
-                    color: doc.data().color,
-                    background: doc.data().background
+                    snapshot.forEach((doc) => {
+                        list.push({
+                            id: doc.data().id,
+                            name: doc.data().name,
+                            url: doc.data().url,
+                            background: doc.data().background,
+                            color: doc.data().color
+                        })
+                    })
+
+                    setLinks(list);
+                    console.log(links)
+                    
                 })
-            })
-        })
-
-        return () => {
-            unsub(); //Para de observar
         }
-    }, []) 
+        loadLinks();
+    }, [])
+    
+    useEffect(() => {
+        function loadSocialLinks() {
+            const docRef = doc(db, "social", "link")
+            getDoc(docRef)
+                .then((snapshot) => {
+                    if (snapshot) {
+                        setSocial({
+                            github: snapshot.data()?.github,
+                            instagram: snapshot.data()?.instagram,
+                            x: snapshot.data()?.x
+                    })
+                }
+            })
+        }
+        loadSocialLinks();
+    },[])
 
     return (
         <div className="flex flex-col w-full py-4 items-center justify-cente">
             <Link to="/">
-                <h1 className="mt-11 text-white mb-7 font-bold text-6xl">W<span className="bg-gradient-to-r from-sky-400 to-blue-500 bg-clip-text text-transparent -ml-3">Link</span></h1>
+                <h1 className="mt-11 text-white mb-7 font-bold text-7xl">W<span className="bg-gradient-to-r from-sky-400 to-blue-500 bg-clip-text text-transparent -ml-3">Link</span></h1>
             </Link>
             <span className="flex text-gray-50 mb-5 mt-3">See my links <CornerRightDown /></span>
             
@@ -52,9 +74,9 @@ const Home = () => {
                 ))}
 
                 <footer className="flex justify-center gap-3 my-4">
-                    <a target="_blank" href="https://facebook.com.br"><Facebook color="white" size={45} /></a>
-                    <a target="_blank" href="https://instagram.com.br"><Instagram color="white" size={45}/></a>
-                    <a target="_blank" href="https://Youtube.com.br"><Youtube color="white" size={45}/></a>
+                    <a target="_blank" href={social?.github}><Github color="white" size={45} /></a>
+                    <a target="_blank" href={social?.instagram}><Instagram color="white" size={45}/></a>
+                    <a target="_blank" href={social?.x}><X color="white" size={45}/></a>
                 </footer>
             </main>
         </div>
